@@ -5,14 +5,32 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private WeaponStats stats;
+    [SerializeField] private RangedWeaponStats stats;
     [SerializeField] private GameObject projectilePrefab;
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject projectile = Instantiate(projectilePrefab, transform.transform);
-            projectile.GetComponent<Rigidbody2D>().velocity = transform.forward * stats.projectileSpeed;
+            for(int i = 0; i < stats.bulletCount; i++)
+            {  
+                // Calculates rotation based on spread.
+                float spread = stats.spread;
+                float rotation = Random.Range((int)(-spread / 2), (int)(spread / 2));
+                Vector3 rotationVector = new Vector3(0, 0, rotation);
+
+                // Spawns projectile with correct rotation.
+                GameObject projectile = Instantiate(projectilePrefab, transform.transform);
+
+                // Removes parent
+                projectile.transform.parent = null;
+
+                // Sets range
+                projectile.GetComponent<Projectile>().range = stats.range;
+
+                // Sets velocity
+                projectile.GetComponent<Rigidbody2D>().velocity = transform.up * stats.projectileSpeed;
+            }
+
         }
     }
 }

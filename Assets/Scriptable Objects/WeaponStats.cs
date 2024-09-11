@@ -7,7 +7,7 @@ using UnityEngine;
 public class WeaponStats : ScriptableObject
 {
     public float damage;
+    public float range;
     public float cooldown;
-    public float radius;
-    public float projectileSpeed;
+    public float spread;
 }
