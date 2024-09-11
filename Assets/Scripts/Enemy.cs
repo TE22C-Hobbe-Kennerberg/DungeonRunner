@@ -5,10 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Health healthScript;
-    [SerializeField] private float health;
     void Start()
     {
-        
+        healthScript = GetComponent<Health>();
     }
 
     void Update()
