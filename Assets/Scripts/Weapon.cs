@@ -16,20 +16,17 @@ public class Weapon : MonoBehaviour
                 // Calculates rotation based on spread.
                 float spread = stats.spread;
                 float rotation = Random.Range((int)(-spread / 2), (int)(spread / 2));
-                Vector3 rotationVector = new Vector3(0, 0, rotation);
+                Vector3 rotationVector = transform.eulerAngles + new Vector3(0, 0, rotation);
 
                 // Spawns projectile with correct rotation.
-                GameObject projectile = Instantiate(projectilePrefab, transform.transform);
-
+                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(rotationVector));
                 // Removes parent
                 projectile.transform.parent = null;
-
                 // Sets range
-                projectile.GetComponent<Projectile>().range = stats.range;
-
-                // Sets velocity
-                projectile.GetComponent<Rigidbody2D>().velocity = transform.up * stats.projectileSpeed;
+                projectile.GetComponent<Projectile>().stats = stats;
             }
+
+
 
         }
     }

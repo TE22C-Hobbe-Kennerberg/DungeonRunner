@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Ranged Weapon Stats
   m_EditorClassIdentifier: 
   damage: 10
+  range: 15
   cooldown: 0
-  radius: 0
-  projectileSpeed: 15
+  spread: 10
+  projectileSpeed: 25
   maxAmmo: 0
-  bulletCount: 0
+  bulletCount: 2
