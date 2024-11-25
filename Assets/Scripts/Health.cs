@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public float health { get; private set; }
-    public float maxHealth { get; private set; }
+    [SerializeField] public float maxHealth;
+    [SerializeField] public float health;
 
+ 
     public void Damage(float amount)
     {
         health -= amount;

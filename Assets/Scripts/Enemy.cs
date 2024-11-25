@@ -6,11 +6,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Health healthScript;
-    [SerializeField] private float movementSpeed = 1;
+    [SerializeField] public EnemyStats stats { get; private set; }
+    
 
     void Start()
     {
         healthScript = GetComponent<Health>();
+        healthScript.maxHealth = stats.startingHealth;
+        healthScript.health = stats.startingHealth;
+
+        transform.localScale = Vector3.one * stats.size;
     }
 
     void Update()
@@ -18,17 +23,25 @@ public class Enemy : MonoBehaviour
         // Move towards player.
         Vector3 playerPos = GameObject.Find("Player").transform.position;
         Vector3 movement = playerPos - transform.position;
-        movement = movement.normalized * movementSpeed / 1000;
+        movement = movement.normalized * stats.speed / 1000;
         transform.position += movement;
+
+        if(healthScript.health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("here");
-        if(collision.gameObject.name == "Projectile")
+        if(collision.gameObject.name == "Projectile(Clone)")
         {
             GameObject projectile = collision.gameObject;
             healthScript.Damage(projectile.GetComponent<Projectile>().damage);
+        }
+
+        if(collision.gameObject.name == "Player"){
+            collision.gameObject.GetComponent<Health>().Damage(stats.damage);
         }
         
     }

@@ -15,21 +15,23 @@ public class Projectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         startLocation = transform.position;
-       // transform.localEulerAngles = new Vector3(0, 0, 45);
+        // transform.localEulerAngles = new Vector3(0, 0, 45);
         rb.velocity = transform.up * speed;
     }
 
     void Update()
     {
-        if(Vector3.Distance(startLocation, transform.position) > range)
+        if (Vector3.Distance(startLocation, transform.position) > range)
         {
             Destroy(gameObject);
+
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("here");
-        Destroy(gameObject);
+            Destroy(gameObject);
+
     }
 }
+

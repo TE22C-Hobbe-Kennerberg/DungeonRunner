@@ -6,11 +6,11 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject barrel;
 
     [Header("Stats")]
     [SerializeField] private float damage;
     [SerializeField] private float range;
-    [SerializeField] private float cooldown;
     [SerializeField] private float spread;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private int maxAmmo;
@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
                 Vector3 rotationVector = transform.eulerAngles + new Vector3(0, 0, rotation);
 
                 // Spawns projectile with correct rotation.
-                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(rotationVector));
+                GameObject projectile = Instantiate(projectilePrefab, barrel.transform.position, Quaternion.Euler(rotationVector));
 
                 // Removes parent
                 projectile.transform.parent = null;
