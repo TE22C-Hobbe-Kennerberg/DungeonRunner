@@ -5,6 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public float health { get; private set; }
+    public float maxHealth { get; private set; }
 
     public void Damage(float amount)
     {
@@ -13,5 +14,9 @@ public class Health : MonoBehaviour
     public void Heal(float amount)
     {
         health += amount;
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
     }
 }

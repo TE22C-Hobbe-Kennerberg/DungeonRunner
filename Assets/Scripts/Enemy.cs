@@ -18,12 +18,18 @@ public class Enemy : MonoBehaviour
         // Move towards player.
         Vector3 playerPos = GameObject.Find("Player").transform.position;
         Vector3 movement = playerPos - transform.position;
-        movement = movement.normalized * movementSpeed;
+        movement = movement.normalized * movementSpeed / 1000;
         transform.position += movement;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("here");
+        if(collision.gameObject.name == "Projectile")
+        {
+            GameObject projectile = collision.gameObject;
+            healthScript.Damage(projectile.GetComponent<Projectile>().damage);
+        }
         
     }
 }
