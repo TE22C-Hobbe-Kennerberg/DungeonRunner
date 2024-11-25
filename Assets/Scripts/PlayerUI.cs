@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -9,6 +11,9 @@ public class PlayerUI : MonoBehaviour
     private EnemySpawner enemySpawner;
     [SerializeField] private GameObject levelUI;
 
+    bool waitForUpgrade;
+    bool selectedUpgrade;
+
     private void Start()
     {
         playerWeaponScript = GameObject.Find("Player").GetComponentInChildren<Weapon>();
@@ -16,26 +21,41 @@ public class PlayerUI : MonoBehaviour
         HideLevelUI();
     }
 
-    public void SelectUpgrade(int upgrade)
+    private void Update()
     {
-        Debug.Log("Button pressed!");
-        // 0. Damage, 1. Projectile count.
-        switch (upgrade)
+        if (waitForUpgrade)
         {
-            case 0:
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
                 playerWeaponScript.LevelDamage();
-                break;
-            case 1:
+                selectedUpgrade = true;
+
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
                 playerWeaponScript.LevelProjectileCount();
-                break;
+                selectedUpgrade = true;
+            }
+
+            if (selectedUpgrade)
+            {
+                waitForUpgrade = false;
+                HideLevelUI();
+                enemySpawner.NextWave();
+            }
         }
-        HideLevelUI();
-        enemySpawner.NextWave();
+    }
+
+    public void SelectUpgrade()
+    {
+        selectedUpgrade = false;
+        waitForUpgrade = true;
+        ShowLevelUI();
+
     }
 
     public void ShowLevelUI()
     {
-        Debug.Log("here");
         levelUI.SetActive(true);
     }
 

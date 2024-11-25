@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aff5b845d3452894eb30a916e729c83d, type: 3}
-  m_Name: Temp
+  m_Name: Normal
   m_EditorClassIdentifier: 
-  startingHealth: 1
-  speed: 5
-  damage: 10
-  size: 5
+  startingHealth: 10
+  speed: 3
+  damage: 2
+  size: 1
