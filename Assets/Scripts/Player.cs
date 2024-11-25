@@ -1,19 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        Health healthScript = GetComponent<Health>();
+        if(healthScript.health <= 0)
+        {
+            GameObject.Find("Scene Controller").GetComponent<SceneController>().LoadGameOver();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
