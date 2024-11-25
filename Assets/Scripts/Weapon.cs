@@ -9,12 +9,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject barrel;
 
     [Header("Stats")]
-    [SerializeField] private float damage;
-    [SerializeField] private float range;
-    [SerializeField] private float spread;
-    [SerializeField] private float projectileSpeed;
-    [SerializeField] private int maxAmmo;
-    [SerializeField] private int projectileCount;
+    [SerializeField] private float damage = 5;
+    [SerializeField] private float range = 15;
+    [SerializeField] private float spread = 15;
+    [SerializeField] private float projectileSpeed = 10;
+    [SerializeField] private int projectileCount = 1;
+    [Space(25)]
+    [SerializeField] private float damagePerLevel = 1;
+
 
 
     void Update()
@@ -40,5 +42,14 @@ public class Weapon : MonoBehaviour
                 projectileScript.range = range;
             }
         }
+    }
+
+    public void LevelDamage()
+    {
+        damage += damagePerLevel;
+    }
+    public void LevelProjectileCount()
+    {
+        projectileCount++;
     }
 }

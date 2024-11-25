@@ -7,10 +7,13 @@ public class Enemy : MonoBehaviour
 {
     private Health healthScript;
     [SerializeField] public EnemyStats stats;
+    private Rigidbody2D rb;
     
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         healthScript = GetComponent<Health>();
         healthScript.maxHealth = stats.startingHealth;
         healthScript.health = stats.startingHealth;
@@ -20,16 +23,8 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // Move towards player.
-        Vector3 playerPos = GameObject.Find("Player").transform.position;
-        Vector3 movement = playerPos - transform.position;
-        movement = movement.normalized * stats.speed / 1000;
-        transform.position += movement;
-
-        if(healthScript.health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        Movement();
+        CheckHealth();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -44,5 +39,23 @@ public class Enemy : MonoBehaviour
             collision.gameObject.GetComponent<Health>().Damage(stats.damage);
         }
         
+    }
+
+    private void Movement()
+    {
+        // Move towards player.
+        Vector3 playerPos = GameObject.Find("Player").transform.position;
+        Vector3 movement = playerPos - transform.position;
+        movement = movement.normalized * stats.speed;
+        rb.velocity = movement;
+    }
+
+    private void CheckHealth()
+    {
+        if (healthScript.health <= 0)
+        {
+            Destroy(gameObject);
+            GameObject.Find("Enemy Spawner").GetComponent<EnemySpawner>().KilledEnemy();
+        }
     }
 }
