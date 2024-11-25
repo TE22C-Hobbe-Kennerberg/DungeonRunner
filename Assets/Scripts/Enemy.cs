@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Health healthScript;
-    [SerializeField] public EnemyStats stats { get; private set; }
+    [SerializeField] public EnemyStats stats;
     
 
     void Start()

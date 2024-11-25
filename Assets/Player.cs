@@ -24,5 +24,4 @@ public class Player : MonoBehaviour
             GetComponent<Health>().Damage(damage);
         }
     }
-
 }
